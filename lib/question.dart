@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 class Question {
   String questionText;
-  bool answer;
+  bool questionAnswer;
 
-  Question(String question, bool answer) {
-    question = questionText;
-    answer = this.answer;
+  Question({String q, bool a}) {
+    questionText = q;
+    questionAnswer = a;
   }
 }
