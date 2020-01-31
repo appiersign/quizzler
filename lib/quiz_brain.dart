@@ -67,6 +67,6 @@ class Quiz {
   }
 
   void nextQuestion() {
-    if (_number < questions.length) _number++;
+    if (_number < (questions.length - 1)) _number++;
   }
 }

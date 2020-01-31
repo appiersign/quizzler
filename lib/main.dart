@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quizzler/check_answer.dart';
 import 'package:quizzler/quiz_brain.dart';
 
 void main() => runApp(Quizzler());
@@ -28,6 +29,14 @@ class QuizPage extends StatefulWidget {
 class _QuizPageState extends State<QuizPage> {
   List<Icon> scoreKeeper = [];
   Quiz quiz = Quiz();
+  Answer answer = Answer();
+
+  void _checkAnswer(bool response) {
+    setState(() {
+      answer.check(quiz.getAnswer() == response);
+      quiz.nextQuestion();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,20 +75,7 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //The user picked true.
-                if (quiz.getAnswer() == true) {
-                  print('You got it right!');
-                } else {
-                  print('You got it wrong!');
-                }
-                setState(() {
-                  scoreKeeper.add(
-                    Icon(
-                      Icons.check,
-                      color: Colors.green,
-                    ),
-                  );
-                  quiz.nextQuestion();
-                });
+                _checkAnswer(true);
               },
             ),
           ),
@@ -98,26 +94,13 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //The user picked false.
-                if (quiz.getAnswer() == true) {
-                  print('You got it right!');
-                } else {
-                  print('You got it wrong!');
-                }
-                setState(() {
-                  scoreKeeper.add(
-                    Icon(
-                      Icons.close,
-                      color: Colors.red,
-                    ),
-                  );
-                  quiz.nextQuestion();
-                });
+                _checkAnswer(false);
               },
             ),
           ),
         ),
         Row(
-          children: scoreKeeper,
+          children: answer.scoreKeeper,
         )
       ],
     );
